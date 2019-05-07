@@ -1,2 +1,2 @@
-# BSTU
+# BSTU | FIT | design
 Laboratory works
