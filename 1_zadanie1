@@ -1,0 +1,51 @@
+#include<iostream>
+#include<Windows.h>
+
+using namespace std;
+int func_sum_result(int *array_int, int len);
+
+void main()
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+
+	int *array_int, len;
+
+	cout << "Введите длину массива: ";
+	cin >> len;
+
+	array_int = new int[len];
+	cout << "Введите значения массива:" << endl;
+	for (int i = 0; i < len; i++)
+	{
+		cout << "array_int[" << i << "] = ";
+		cin >> array_int[i];
+	}
+
+	cout << "\nСумма элементов между первым нулевым элементом и последним: "
+		<< func_sum_result(array_int, len) << "\n" << endl;
+
+	delete[]array_int;
+
+	system("pause");
+}
+
+int func_sum_result(int *array_int,int len)
+{
+	int sum_array = 0, first_null, end_null;
+
+	for (int i = 0; i < len; i++)
+		if (array_int[i] == NULL)
+		{
+			first_null = i;
+			break;
+		}
+	for (int i = first_null + 1; i < len; i++)
+		if (array_int[i] == NULL)
+			end_null = i;
+
+	for (int i = first_null; i < end_null; i++)
+		sum_array += array_int[i];
+	
+	return sum_array;
+}
