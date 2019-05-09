@@ -1,0 +1,43 @@
+#include<iostream>
+#include<fstream>
+
+using namespace std;
+
+int main()
+{
+	char buff[100];
+	int count_words = 0;
+	ifstream FILE1("FILE1.txt");
+	ofstream FILE2("FILE2.txt");
+
+	if (!FILE1)
+	{
+		cout << "error open FILE1.txt" << endl;
+		system("pause");
+		return EXIT_FAILURE;
+	}
+	if (!FILE2)
+	{
+		cout << "error open FILE2.txt" << endl;
+		system("pause");
+		return EXIT_FAILURE;
+	}
+
+	while (FILE1.getline(buff, 100))
+	{
+		if (buff[0] == 'A')
+		{
+			FILE2 << buff << endl;
+			count_words++;
+			for (int i = 0; i < 99; i++)
+				if (buff[i] == ' ' &&
+					buff[i + 1] != ' ')
+					count_words++;
+		}
+	}
+	FILE2 << "words in this file: " << count_words;
+	FILE1.close();
+	FILE2.close();
+	system("pause");
+	return EXIT_FAILURE;
+}
