@@ -1,0 +1,113 @@
+  //  Заголовочный файл:__________________________________________
+struct Stack
+{
+	int data;            
+	Stack* head;		 
+	Stack* next;		 
+};
+
+void show(Stack* myStk);         
+int pop(Stack* myStk);          
+void push(int x, Stack* myStk);
+int summ(Stack* myStk);
+
+  //  Меню-файл:________________________________________________
+#include <iostream>
+#include "myStack.h"
+using namespace std;
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	int choice;
+	Stack* myStk = new Stack; 
+	myStk->head = NULL;     	
+	for (;;)
+	{
+		cout << "Выберите команду:" << endl;
+		cout << "1 - Добавление элемента в стек" << endl;
+		cout << "2 - Извлечение элемента из стека" << endl;
+		cout << "3 - Вывод стека" << endl;
+		cout << "4 - Файловый ввод" << endl;
+		cout << "5 - Вывод из файла" << endl;
+		cout << "6 - сумма всех положительных элементов" << endl;
+		cout << "0 - Выход" << endl;
+		cin >> choice;
+		switch (choice)
+		{
+		case 1: cout << "Введите элемент: " << endl;
+			cin >> choice;
+			push(choice, myStk);
+			break;
+		case 2: choice = pop(myStk);
+			if (choice != -1)
+				cout << "Извлеченный элемент: " << choice << endl;
+			break;
+		case 3: cout << "Весь стек: " << endl;
+			show(myStk);
+			break;
+		case 6:
+			cout << "Сумма всех положительных элементов: " << summ(myStk) << endl;
+		case 0: return 0;
+			break;
+		}
+	}
+	return 0;
+}
+
+  //  Файл с функциями:____________________________________________
+#include <iostream>
+#include "myStack.h"
+using namespace std;
+void push(int x, Stack* myStk)   
+{
+	Stack* e = new Stack;   
+	e->data = x;            
+	e->next = myStk->head;    
+	myStk->head = e;        
+}
+int pop(Stack* myStk)   
+{
+	if (myStk->head == NULL)
+	{
+		cout << "Стек пуст!" << endl;
+		return -1;               
+	}
+	else
+	{
+		Stack* e = myStk->head;   
+		int a = myStk->head->data;  
+		myStk->head = myStk->head->next; 
+		delete e;                       
+		return a;                        
+	}
+}
+void show(Stack* myStk)   
+{
+	Stack* e = myStk->head;    
+	int a;
+	if (e == NULL)
+		cout << "Стек пуст!" << endl;
+	while (e != NULL)
+	{
+		a = e->data;           
+		cout << a << " ";
+		e = e->next;
+	}
+	cout << endl;
+}
+
+int summ(Stack* myStk)
+{
+	Stack* e = myStk->head;
+	int sum = 0, a;
+	if (e == NULL)
+		return sum;
+	while (e != NULL)
+	{
+		a = e->data;
+		if (a > 0)
+			sum += a;
+		e = e->next;
+	}
+	return sum;
+}
