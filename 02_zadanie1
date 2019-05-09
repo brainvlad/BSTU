@@ -1,0 +1,57 @@
+#include<iostream>
+#include<Windows.h>
+float metod_diht(float(*f)(float), float, float, float);
+float func_1(float);
+float func_2(float);
+
+using namespace std;
+
+//x3 + x – 3,
+//cos3(x)
+
+void main()
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	int choice;
+	float e = 0.0001, roat;
+	cout << "Выберите формулу для расчета:\n1 - (x^3 + x – 3)\n2 - (cos^3(x))\n";
+	cin >> choice;
+	system("cls");
+	if (choice == 1)
+	{
+		float a = 1, b = 1.5;
+		roat = metod_diht(func_1, a, b, e);
+	}
+	else
+	{
+		float a = 4.5, b = 5;
+		roat = metod_diht(func_2, a, b, e);
+	}
+	cout << "Корень уравнения " << choice << ": " << roat << endl;
+	system("pause");
+}
+
+float metod_diht(float(*func)(float), float a, float b, float e)
+{
+	float x;
+	while (abs(a - b) > (2 * e))
+	{
+		x = (a + b) / 2;
+		if (func(x)*func(a) <= 0)
+			b = x;
+		else
+			a = x;
+	}
+	return x;
+}
+
+float func_1(float q)
+{
+	return (q*q*q + q - 3);
+}
+
+float func_2(float q)
+{
+	return (cos(q)*cos(q)*cos(q));
+}
